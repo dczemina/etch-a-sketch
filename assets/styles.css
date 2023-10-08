@@ -1,0 +1,43 @@
+
+.flex {
+    display: flex;
+    justify-content: stretch;
+    gap: 8px;
+}
+
+.flex.flex-column {
+    flex-direction: column;
+}
+
+
+#container {
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+}
+
+#controls {
+    flex-grow: 1;
+    border: 1px solid green;
+}
+
+#sketchpad {
+    flex-grow: 2;
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.square {
+    box-sizing: border-box;
+    border: 1px solid black;
+    height: 0;
+    background-color: #3498db;
+  }
+
+@media screen and (max-width: 779px) {
+    #container.flex {
+        flex-direction: column;
+    }
+}
