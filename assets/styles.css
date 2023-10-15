@@ -6,6 +6,7 @@ body {
 * {
     box-sizing: border-box;
     font-family: 'Pixelify Sans', sans-serif;
+    color: #fff;
 }
 
 .flex {
@@ -24,6 +25,7 @@ body {
     align-items: center;
     height: 100vh;
     padding: 10px;
+    background-color: darkred;
 }
 
 #controls h1 {
@@ -37,12 +39,15 @@ body {
     align-items: center;
     justify-content: flex-end;
     gap: 25px;
+    padding: 15px;
+    background-color: darkred;
 }
 
 #sketchpad-container {
     padding: 15px;
     flex-grow: 2;
     align-self: stretch;
+    background-color: #fff;
 }
 
 #sketchpad {
@@ -64,4 +69,19 @@ body {
     #container.flex {
         flex-direction: column;
     }
+}
+
+#button-clear {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 15px;
+    background-color: #5a5a5a
+}
+
+#button-clear:hover {
+    background-color: #7a7a7a
+}
+
+#button-clear:hover:active {
+    background-color: #9a9a9a
 }
