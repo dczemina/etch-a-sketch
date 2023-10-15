@@ -109,6 +109,10 @@ const initSquare = (square) => {
             event.target.style.backgroundColor = squareColor;
         }
     })
+    square.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.target.style.backgroundColor = squareColor;
+    });
     // Disable dragging
     square.ondragstart = () => false;
 }
