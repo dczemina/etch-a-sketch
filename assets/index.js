@@ -52,37 +52,41 @@ const initSquares = (squareDiff = null) => {
     // No change
     if (squareDiff === 0) return;
 
-    // Remove excess squares if new grid is smaller than old grid
-    // But keep remaining to save on initialization
-    if (squareDiff < 0) {
-        for (let i=0; i > squareDiff; i--) {
-            if (sketchpad.firstChild)
-                sketchpad.removeChild(sketchpad.firstChild);
+    // First time, create all squares
+    if (!squareDiff) {
+        for (let r=0; r<gridSize; r++) {
+            for (let c=0; c<gridSize; c++) {
+                const square = document.createElement('div');
+                initSquare(square);
+                sketchpad.appendChild(square);
+            }
         }
-    }
-    
-    // Add new squares if new grid is bigger than old grid
-    // Keep existing squares to reduce initialization
-    else if (squareDiff > 0) {
+    } else {
+        // Reference to all current squares
         const allSquares = document.querySelectorAll('.square');
 
         allSquares.forEach(square => {
-            resizeSquare(square);
+            square.style.backgroundColor = null;
         })
 
-        for (let i=0; i < squareDiff; i++) {
-            const square = document.createElement('div');
-            initSquare(square);
-            sketchpad.appendChild(square);
+        // Remove excess squares if new grid is smaller than old grid
+        // But keep remaining to save on initialization
+        if (squareDiff < 0) {
+            for (let i=0; i > squareDiff; i--) {
+                if (sketchpad.firstChild)
+                    sketchpad.removeChild(sketchpad.firstChild);
+            }
         }
-    }
-
-    // First time, create all squares
-    else  {
-        while (sketchpad.firstChild)
-            sketchpad.removeChild(sketchpad.firstChild);
-        for (let r=0; r<gridSize; r++) {
-            for (let c=0; c<gridSize; c++) {
+        
+        // Add new squares if new grid is bigger than old grid
+        // Keep existing squares to reduce initialization
+        else if (squareDiff > 0) {
+    
+            allSquares.forEach(square => {
+                resizeSquare(square);
+            })
+    
+            for (let i=0; i < squareDiff; i++) {
                 const square = document.createElement('div');
                 initSquare(square);
                 sketchpad.appendChild(square);

@@ -52,10 +52,6 @@ body {
     border: 2px solid darkred;
 }
 
-.square {
-    /* border: 1px solid purple */
-}
-
 .square.filled {
     background-color: #000;
 }
