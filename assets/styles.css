@@ -53,7 +53,7 @@ body {
 }
 
 .square {
-    border: 1px solid purple
+    /* border: 1px solid purple */
 }
 
 .square.filled {

@@ -1,69 +1,101 @@
 
 const sketchpad = document.querySelector('#sketchpad');
 
-// Grid Size
+// Utility Functions
+
+// The difference in total grid square between old and new grid when the size changes
+// If the grid gets smaller, simply remove excess squares and resize the remaining. No need to remove all/add all and then add new event listeners
+const calculateSquareDiff = (oldSize, newSize) => {
+    const oldTotal = oldSize ** 2;
+    const newTotal = newSize ** 2;
+    return newTotal - oldTotal;
+}
+
+// Initial Variable Sizes
 let gridSize = 16;
-let squareColor = '#000';
+let squareColor = '#abcdef';
 let basis;
 
 const gridSizeInput = document.querySelector('#grid-size');
 const gridSizeLabel = document.querySelector('#grid-size-label');
 const squareColorInput = document.querySelector('#square-color');
 
+// Grid Size Change Event
 gridSizeInput.addEventListener('change', (event) => {
-    setupGrid(event.target.value);
+    const oldGridSize = gridSize;
+    gridSize = event.target.value;
+    totalSquareDiff = calculateSquareDiff(oldGridSize, gridSize);
+    initGrid(totalSquareDiff);
 })
 
+// Color Change Event
 squareColorInput.addEventListener('change', (event) => {
     squareColor = event.target.value;
 })
 
 // Update UI, remove old grid, build new grid
-const setupGrid = (size) => {
-    gridSize = size;
+const initGrid = (squareDiff) => {
     gridSizeLabel.textContent = `Grid Size: ${gridSize} by ${gridSize}`
     gridSizeInput.value = gridSize;
-    removeGrid();
-    calculateSquareSize();
-    buildGrid();
-    console.log('grid built: ' + gridSize)
+    calcSquareSizePercent();
+    initSquares(squareDiff);
 }
 
-// Remove all grid squares
-const removeGrid = () => {
-    while (sketchpad.firstChild)
-        sketchpad.removeChild(sketchpad.firstChild);
-}
-
-const calculateSquareSize = () => {
+// Calculate the length/width percents of each square
+const calcSquareSizePercent = () => {
     basis = 1/gridSize * 100;
 }
 
 // Add grid squares based on current gridSize
-const buildGrid = () => {
-    for (let r=0; r<gridSize; r++) {
-        for (let c=0; c<gridSize; c++) {
+const initSquares = (squareDiff = null) => {
+
+    // No change
+    if (squareDiff === 0) return;
+
+    // Remove excess squares if new grid is smaller than old grid
+    // But keep remaining to save on initialization
+    if (squareDiff < 0) {
+        for (let i=0; i > squareDiff; i--) {
+            if (sketchpad.firstChild)
+                sketchpad.removeChild(sketchpad.firstChild);
+        }
+    }
+    
+    // Add new squares if new grid is bigger than old grid
+    // Keep existing squares to reduce initialization
+    else if (squareDiff > 0) {
+        const allSquares = document.querySelectorAll('.square');
+
+        allSquares.forEach(square => {
+            resizeSquare(square);
+        })
+
+        for (let i=0; i < squareDiff; i++) {
             const square = document.createElement('div');
-            setupGridSquare(square);
+            initSquare(square);
             sketchpad.appendChild(square);
+        }
+    }
+
+    // First time, create all squares
+    else  {
+        while (sketchpad.firstChild)
+            sketchpad.removeChild(sketchpad.firstChild);
+        for (let r=0; r<gridSize; r++) {
+            for (let c=0; c<gridSize; c++) {
+                const square = document.createElement('div');
+                initSquare(square);
+                sketchpad.appendChild(square);
+            }
         }
     }
 }
 
-const calculateSketchpadContainerSize = () => {
-    const controls = document.querySelector('#controls');
-    const sketchpadContainer = document.querySelector('#sketchpad-container');
-    const controlsHeight = controls.offsetHeight + 2;
-    
-    sketchpadContainer.style.maxHeight = `calc(100vh - ${controlsHeight}px)`;
-}
-
-// Add event listeners for draw
-const setupGridSquare = (square) => {
+// Add styling and events to new squares
+const initSquare = (square) => {
     // Setup style
     square.classList.add('square');
-    square.style.flexBasis = `${basis}%`;
-    square.style.height = `${basis}%`;
+    resizeSquare(square);
 
     // Handle Drawing
     square.addEventListener('mousemove', (event) => {
@@ -77,7 +109,23 @@ const setupGridSquare = (square) => {
     square.ondragstart = () => false;
 }
 
+// Set the size of a square per the basis
+const resizeSquare = (square) => {
+    square.style.flexBasis = `${basis}%`;
+    square.style.height = `${basis}%`;
+}
+
+// Set the size of the sketchpad container
+const calcSketchpadContainerSize = () => {
+    const controls = document.querySelector('#controls');
+    const sketchpadContainer = document.querySelector('#sketchpad-container');
+    const controlsHeight = controls.offsetHeight + 2;
+    
+    sketchpadContainer.style.maxHeight = `calc(100vh - ${controlsHeight}px)`;
+}
+
 // Initiate the grid
-setupGrid(gridSize);
+initGrid();
+squareColorInput.value = squareColor;
 // Initiate the grid container
-calculateSketchpadContainerSize();
+calcSketchpadContainerSize();
