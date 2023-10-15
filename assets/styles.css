@@ -27,7 +27,6 @@ body {
 
 #controls {
     align-self: stretch;
-    border: 1px solid green;
 }
 
 #sketchpad-container {
@@ -39,16 +38,15 @@ body {
     aspect-ratio: 1/1;
     max-width: 95%;
     max-height: 95%;
-    border: 1px solid red;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 0px auto;
+    border: 2px solid darkred;
 }
 
-.square {
-    background-color: #aaa;
-    border: 1px solid black;
+.square.filled {
+    background-color: #000;
 }
 
 @media screen and (max-width: 779px) {

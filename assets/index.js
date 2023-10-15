@@ -1,7 +1,20 @@
 
 const sketchpad = document.querySelector('#sketchpad');
 
-let gridSize = 32;
+let gridSize = 16;
+
+const draw = () => {
+    const squares = document.querySelectorAll('.square');
+
+    squares.forEach(square => {
+        square.addEventListener('mouseenter', (event) => {
+            // If left-mouse button is down
+            if (event.buttons === 1) {
+                event.target.classList.add('filled');
+            }
+        })
+    });
+}
 
 const buildGrid = () => {
     const basis = 1/gridSize * 100;
@@ -14,15 +27,17 @@ const buildGrid = () => {
             sketchpad.appendChild(square);
         }
     }
+    draw();
 }
 
-const calculateSketchadContainerSize = () => {
+const calculateSketchpadContainerSize = () => {
     const controls = document.querySelector('#controls');
     const sketchpadContainer = document.querySelector('#sketchpad-container');
     const controlsHeight = controls.offsetHeight + 2;
+    
     sketchpadContainer.style.maxHeight = `calc(100vh - ${controlsHeight}px)`;
 }
 
 buildGrid();
 
-calculateSketchadContainerSize();
+calculateSketchpadContainerSize();
