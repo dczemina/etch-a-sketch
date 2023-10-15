@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro Sketch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="assets/styles.css">
     <script src="assets/index.js" defer></script>
 </head>
 <body>
     <div id="container">
         <div id="controls">
+            <h1>Retro Sketch</h1>
             <div class="flex flex-column">
                 <label for="grid-size" id="grid-size-label">Grid Size: </label>
                 <input name="grid-size" id="grid-size" type="range" min="12" max="128">
@@ -19,9 +23,15 @@
                 <input name="square-color" id="square-color" type="color">
             </div>
         </div>
+        <div id="instructions" class="flex">
+            <p>Press and hold the left mouse button over the grid to draw a picture.</p>
+        </div>
         <div id="sketchpad-container">
             <div id="sketchpad"></div>
         </div>
+        <footer id="footer" class="flex">
+            <p>By <a href="https://github.com/dczemina">David Zemina</a></p>
+        </footer>
     </div>
 </body>
 </html>

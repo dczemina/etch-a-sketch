@@ -12,7 +12,7 @@ const calculateSquareDiff = (oldSize, newSize) => {
 }
 
 // Initial Variable Sizes
-let gridSize = 16;
+let gridSize = 50;
 let squareColor = '#abcdef';
 let basis;
 
@@ -122,10 +122,14 @@ const resizeSquare = (square) => {
 // Set the size of the sketchpad container
 const calcSketchpadContainerSize = () => {
     const controls = document.querySelector('#controls');
+    const instructions = document.querySelector('#instructions');
+    const footer = document.querySelector('#footer');
     const sketchpadContainer = document.querySelector('#sketchpad-container');
-    const controlsHeight = controls.offsetHeight + 2;
+    const controlsHeight = controls.offsetHeight + 3;
+    const instructionsHeight = instructions.offsetHeight + 3;
+    const footerHeight = footer.offsetHeight + 3;
     
-    sketchpadContainer.style.maxHeight = `calc(100vh - ${controlsHeight}px)`;
+    sketchpadContainer.style.maxHeight = `calc(100vh - ${controlsHeight}px - ${instructionsHeight}px - ${footerHeight}px)`;
 }
 
 // Initiate the grid
