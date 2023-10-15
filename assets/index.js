@@ -8,9 +8,14 @@ let basis;
 
 const gridSizeInput = document.querySelector('#grid-size');
 const gridSizeLabel = document.querySelector('#grid-size-label');
+const squareColorInput = document.querySelector('#square-color');
 
 gridSizeInput.addEventListener('change', (event) => {
     setupGrid(event.target.value);
+})
+
+squareColorInput.addEventListener('change', (event) => {
+    squareColor = event.target.value;
 })
 
 // Update UI, remove old grid, build new grid
@@ -65,7 +70,7 @@ const setupGridSquare = (square) => {
         event.preventDefault();
         // If left-mouse button is down
         if (event.buttons === 1) {
-            event.target.classList.add('filled');
+            event.target.style.backgroundColor = squareColor;
         }
     })
     // Disable dragging
