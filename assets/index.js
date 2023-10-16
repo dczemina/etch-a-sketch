@@ -19,6 +19,13 @@ let basis;
 const gridSizeInput = document.querySelector('#grid-size');
 const gridSizeLabel = document.querySelector('#grid-size-label');
 const squareColorInput = document.querySelector('#square-color');
+const clearButton = document.querySelector('#button-clear');
+
+// Clear
+clearButton.addEventListener('click', (event) => {
+    clearGrid();
+    initGrid(0);
+})
 
 // Grid Size Change Event
 gridSizeInput.addEventListener('change', (event) => {
@@ -62,12 +69,7 @@ const initSquares = (squareDiff = null) => {
             }
         }
     } else {
-        // Reference to all current squares
-        const allSquares = document.querySelectorAll('.square');
-
-        allSquares.forEach(square => {
-            square.style.backgroundColor = null;
-        })
+        clearGrid();
 
         // Remove excess squares if new grid is smaller than old grid
         // But keep remaining to save on initialization
@@ -93,6 +95,15 @@ const initSquares = (squareDiff = null) => {
             }
         }
     }
+}
+
+const clearGrid = () => {
+    // Reference to all current squares
+    const allSquares = document.querySelectorAll('.square');
+
+    allSquares.forEach(square => {
+        square.style.backgroundColor = null;
+    })
 }
 
 // Add styling and events to new squares
