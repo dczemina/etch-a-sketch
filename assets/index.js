@@ -69,7 +69,7 @@ const initSquares = (squareDiff = null) => {
             }
         }
     } else {
-        clearGrid();
+        allSquares = clearGrid();
 
         // Remove excess squares if new grid is smaller than old grid
         // But keep remaining to save on initialization
@@ -104,6 +104,8 @@ const clearGrid = () => {
     allSquares.forEach(square => {
         square.style.backgroundColor = null;
     })
+
+    return allSquares;
 }
 
 // Add styling and events to new squares
